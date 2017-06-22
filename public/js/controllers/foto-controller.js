@@ -19,7 +19,9 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
 			if($scope.foto._id){
 				$http.put('v1/fotos/' + $scope.foto._id, $scope.foto)
 				.success(function(){
+					console.log($scope.foto._id, $scope.foto);
 					$scope.mensagem = "Foto editada com sucesso";
+					$scope.formulario.$setPristine();
 				})
 				.error(function(erro){
 					$scope.mensagem = "Não foi possível editar a foto " + $scope.foto.titulo;
@@ -28,8 +30,10 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
 			}else{
 				$http.post('v1/fotos', $scope.foto)
 				.success(function(){
+					console.log($scope.foto);
 					$scope.foto = {};
 					$scope.mensagem = "Foto incluída com sucesso";
+					$scope.formulario.$setPristine();
 				})
 				.error(function(erro){
 					$scope.mensagem = "Não foi possível incluir a foto";
